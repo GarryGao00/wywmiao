@@ -4,12 +4,13 @@ animals = ["狗", "猪", "鸟", "马", "鱼", "兔", "猴", "牛", "羊", "鸡",
 def _replace_ye_with_miao(text):
     return text.replace("也", "喵")
 
+
 def _replace_animals_with_cat(text):
-    # 简化的动物列表
-    animal_pattern = "|".join(animals)  # 创建正则表达式
+    animal_pattern = "|".join(animals) 
     # 使用re.sub来替换所有匹配的动物名称为“猫”
     text = re.sub(animal_pattern, "猫", text)
     return text
+
 
 def _should_miao_text(text, min_limit=0):
     # 检查文本长度是否超过140字符
@@ -28,12 +29,14 @@ def _should_miao_text(text, min_limit=0):
     else:
         return total_replacements
 
-# 喵func
+
 def _miao_text(text):
     text = _replace_ye_with_miao(text)
     text = _replace_animals_with_cat(text)
     return text
 
+
+# 喵func
 def miao_main(text, min_limit=3):
     replaced_num = _should_miao_text(text, min_limit)
     if replaced_num > 0:
