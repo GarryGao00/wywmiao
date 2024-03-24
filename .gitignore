@@ -1,6 +1,7 @@
 src/古文原文/
 # src/
-
+tokens.*
+.DS_Store
 
 
 
