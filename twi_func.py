@@ -18,7 +18,7 @@ def _oauth1_authentication_helper(credentials):
     # Get request token
     consumer_key, consumer_secret = credentials['consumer_key'], credentials['consumer_secret']
     
-    request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
+    request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=read-write-directmessages"
     oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
 
     try:
@@ -81,7 +81,7 @@ def _oauth2_authentication_helper(credentials):
     code_challenge = base64.urlsafe_b64encode(hashlib.sha256(code_verifier).digest()).rstrip(b'=')
     code_challenge_method = 'S256'
     
-    scopes = ['tweet.read','tweet.write','follows.read','follows.write','block.write','offline.access']
+    scopes = ['tweet.read','tweet.write','follows.read','follows.write','block.write','users.read','offline.access']
 
     oauth = OAuth2Session(client_id, redirect_uri=callback_url, scope=scopes)
     authorization_url, state = oauth.authorization_url(authorization_base_url, 
@@ -118,7 +118,6 @@ def _oauth2_authentication_helper(credentials):
     else:
         print(f"An error occurred: {response.text}")
         return None
-
 
 
 def oauth2_authenticate(file_name='tokens.yaml'):
@@ -209,8 +208,8 @@ def _delete_tweet_helper(credentials, id):
     # Saving the response as JSON
     json_response = response.json()
     print(json_response)
-    
     return 
+    
     
 def delete_tweet(file_name, id, max_attempts=3):
     attempts = 0
@@ -349,12 +348,15 @@ def get_my_id(file_name, params):
     
     return
 
+
+### TODO: need to fix this, not working
 # uses OAuth 2.0
 def get_user_id(file_name, params):
     credentials = get_credentials(file_name=file_name)
     bearer_token = credentials['bearer_token']
     usernames = f"usernames={params['usernames']}"
     user_fields = f"user.fields={params['user.fields']}"
+    # print(f'usernames = {usernames}\nuser_fields = {user_fields}')
     
     def bearer_oauth(r):
         r.headers["Authorization"] = f"Bearer {bearer_token}"
@@ -372,30 +374,26 @@ def get_user_id(file_name, params):
             )
         )
 
-    return
+    return 0
    
     
 if __name__ == "__main__":  
     # Posting a tweet
     file_name = 'tokens.yaml'
-    tweet_text = "Testing OAuth 1.0 still working"
+    tweet_text = "why my OAuth 2.0 is not working \U0001F620"
     payload1 = {"text": tweet_text}
     payload2 = {"text": '... and also in sequence'}
     id = "1772002309087846400"
     my_id = "wywmiao"
     list_id = 'elonmusk'
     payload3 = {"list_id": list_id}
-    fields = "created_at,description"
-    params = {"user.fields": fields}
-    params = {"usernames": "TwitterDev,TwitterAPI,wywmiao", "user.fields": fields}
+    params = {"usernames": "TwitterDev,TwitterAPI,wywmiao", "user.fields": "created_at,description"}
     
-    oauth2_authenticate()
+    # oauth1_authenticate()
+    # oauth2_authenticate()
     credentails = get_credentials(file_name=file_name)
-    # create_tweet(file_name=file_name, payload=payload1)
-    # create_tweet(credentails, payload2)
-    # delete_tweet(credentails, id)  
-    # follow_list(file_name=file_name, id=my_id,payload=payload3)
-    # get_my_id(file_name=file_name, params=params)
+    create_tweet(file_name = file_name, payload=payload1)
+    delete_tweet(file_name=file_name, id=1772299949818146995)
     # get_user_id(file_name=file_name, params=params)
     
     pass
