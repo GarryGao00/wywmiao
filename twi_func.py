@@ -228,7 +228,8 @@ def delete_tweet(file_name, id, max_attempts=3):
     return 0
     
 
-def _follow_list_helper(credentials, id, payload):
+### TODO: not working with FREE access
+def _follow_list_helper(credentials, id, list_id):
     consumer_key, consumer_secret = credentials['consumer_key'], credentials['consumer_secret']
     access_token, access_token_secret = credentials['access_token'], credentials['access_token_secret']
     # Make the request
@@ -238,7 +239,7 @@ def _follow_list_helper(credentials, id, payload):
         resource_owner_key=access_token,
         resource_owner_secret=access_token_secret,
     )
-
+    payload = {'list_id': list_id}
     # Making the request
     response = oauth.post(
         "https://api.twitter.com/2/users/{}/followed_lists".format(id), json=payload
@@ -257,12 +258,13 @@ def _follow_list_helper(credentials, id, payload):
     return
 
 
-def follow_list(file_name, id, payload, max_attempts=3):
+### TODO: not working with FREE access
+def follow_list(file_name, id, list_id, max_attempts=3):
     attempts = 0
     while attempts < max_attempts:
         try:
             credentials = get_credentials(file_name=file_name)
-            _follow_list_helper(credentials, id, payload)
+            _follow_list_helper(credentials, id, list_id)
             print("List followed successfully.")
             return 1
         except Exception as e:
@@ -274,6 +276,7 @@ def follow_list(file_name, id, payload, max_attempts=3):
     return 0
 
 
+### TODO: not working with FREE access
 def _unfollow_list_helper(credentials, id, list_id):
     consumer_key, consumer_secret = credentials['consumer_key'], credentials['consumer_secret']
     access_token, access_token_secret = credentials['access_token'], credentials['access_token_secret']
@@ -303,12 +306,13 @@ def _unfollow_list_helper(credentials, id, list_id):
     return
 
 
-def unfollow_list(file_name, list_id, max_attempts=3):
+### TODO: not working with FREE access
+def unfollow_list(file_name, id, list_id, max_attempts=3):
     attempts = 0
     while attempts < max_attempts:
         try:
             credentials = get_credentials(file_name=file_name)
-            _unfollow_list_helper(credentials, list_id)
+            _unfollow_list_helper(credentials, id, list_id)
             print("List followed successfully.")
             return 1
         except Exception as e:
@@ -320,9 +324,7 @@ def unfollow_list(file_name, list_id, max_attempts=3):
     return 0
 
 
-# fields = "created_at,description"
-# params = {"user.fields": fields}
-def get_my_id(file_name, params):
+def get_my_id(file_name, params={"user.fields": "created_at,description"}):
     credentials = get_credentials(file_name=file_name)
     consumer_key, consumer_secret = credentials['consumer_key'], credentials['consumer_secret']
     access_token, access_token_secret = credentials['access_token'], credentials['access_token_secret']
@@ -349,8 +351,7 @@ def get_my_id(file_name, params):
     return
 
 
-### TODO: need to fix this, not working
-# uses OAuth 2.0
+### TODO: not working with FREE access
 def get_user_id(file_name, params):
     credentials = get_credentials(file_name=file_name)
     bearer_token = credentials['bearer_token']
@@ -377,23 +378,5 @@ def get_user_id(file_name, params):
     return 0
    
     
-if __name__ == "__main__":  
-    # Posting a tweet
-    file_name = 'tokens.yaml'
-    tweet_text = "why my OAuth 2.0 is not working \U0001F620"
-    payload1 = {"text": tweet_text}
-    payload2 = {"text": '... and also in sequence'}
-    id = "1772002309087846400"
-    my_id = "wywmiao"
-    list_id = 'elonmusk'
-    payload3 = {"list_id": list_id}
-    params = {"usernames": "TwitterDev,TwitterAPI,wywmiao", "user.fields": "created_at,description"}
-    
-    # oauth1_authenticate()
-    # oauth2_authenticate()
-    credentails = get_credentials(file_name=file_name)
-    create_tweet(file_name = file_name, payload=payload1)
-    delete_tweet(file_name=file_name, id=1772299949818146995)
-    # get_user_id(file_name=file_name, params=params)
-    
+if __name__ == "__main__":      
     pass
