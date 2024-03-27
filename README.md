@@ -2,6 +2,9 @@
 
 **wywmiao** 是一个用于学习 Twitter API 和 OpenAI API 的项目，用来自动发布喵文并生成猫咪主题的山水画用作插图。📚🎨
 
+在推特上follow我 [Twitter🐦](https://twitter.com/wywmiao)! 
+Follow me on [Twitter 🐦](https://twitter.com/wywmiao)! 
+
 ## ✨ 特色功能 
 
 - 📜 **文言文处理**: 利用 [Classical-Modern](https://github.com/NiuTrans/Classical-Modern.git) 项目的能力，实现文言文与现代文之间的转换。
