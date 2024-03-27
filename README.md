@@ -22,7 +22,7 @@ Follow me on [Twitter 🐦](https://twitter.com/wywmiao)!
 
 ### 准备工作
 
-🔑确保你已经有了 Twitter 和 OpenAI 的开发者账号，并且获取了相应的 API 密钥和令牌。
+确保你已经有了 Twitter 和 OpenAI 的开发者账号，并且获取了相应的 API 密钥和令牌。
 
 ### 安装
 
