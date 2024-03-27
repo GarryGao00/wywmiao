@@ -1,8 +1,9 @@
 # wywmiao - 文言文喵 🐱🏞️
 
-**wywmiao** 是一个用于学习 Twitter API 和 OpenAI API 的项目，用来自动发布喵文并生成猫咪主题的山水画用作插图。📚🎨
+**文言文喵🐱** 是我用于学习 Twitter 和 OpenAI API 的项目，用来在X上自动发布喵文并生成猫咪主题山水画插图。📚🎨
 
 在推特上follow我 [Twitter🐦](https://twitter.com/wywmiao)! 
+
 Follow me on [Twitter 🐦](https://twitter.com/wywmiao)! 
 
 ## ✨ 特色功能 
@@ -21,7 +22,7 @@ Follow me on [Twitter 🐦](https://twitter.com/wywmiao)!
 
 ### 准备工作
 
-🔑确保您已经有了 Twitter 和 OpenAI 的开发者账号，并且获取了相应的 API 密钥和令牌。
+🔑确保你已经有了 Twitter 和 OpenAI 的开发者账号，并且获取了相应的 API 密钥和令牌。
 
 ### 安装
 
@@ -60,7 +61,7 @@ python run.py
 ---
 
 <p align="center">
-    <img width="90%" src="src/imgs/overview.png">
+    <img width="30%" src="src/imgs/overview.png">
 </p>
 
 <p style="text-align: center;">🌟 开始的开始</p>
