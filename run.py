@@ -43,11 +43,8 @@ def main():
     return
 
 if __name__ == "__main__":
-    # Schedule the main function to run every 3 hours
-    schedule.every(3).hours.do(main)
-    
-    for i in range(4):
-        schedule.run_pending()
-        time.sleep(1)
+    while True:
+        main()
+        time.sleep(10800)
 
     pass
