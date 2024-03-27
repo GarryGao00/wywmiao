@@ -1,12 +1,12 @@
 import yaml
 from requests_oauthlib import OAuth1Session, OAuth2Session
 import json
-import logging
+import tweepy
 import requests
 import secrets
 import base64
 import hashlib
-import oauthlib
+import re
 
 def get_credentials(file_name='tokens.yaml'):
     with open(file_name, 'r') as file:
@@ -377,6 +377,33 @@ def get_user_id(file_name, params):
 
     return 0
    
+    
+def upload_media(file_name, media_path):
+    credentials = get_credentials(file_name=file_name)
+    consumer_key, consumer_secret = credentials['consumer_key'], credentials['consumer_secret']
+    access_token, access_token_secret = credentials['access_token'], credentials['access_token_secret']
+
+    tweepy_auth = tweepy.OAuth1UserHandler(
+        "{}".format(consumer_key),
+        "{}".format(consumer_secret),
+        "{}".format(access_token),
+        "{}".format(access_token_secret),
+    )
+    tweepy_api = tweepy.API(tweepy_auth)
+
+    post = tweepy_api.simple_upload(media_path)
+    text = str(post)
+    print(text)
+    media_id = re.search("media_id=(.+?),", text).group(1)
+    return media_id
+
+
+def payload_generate(text, media_id=None):
+    if media_id:
+        payload = {"text": text, "media": {"media_ids": ["{}".format(media_id)]}}
+    else:
+        payload = {"text": text}
+    return payload
     
 if __name__ == "__main__":      
     pass
