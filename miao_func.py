@@ -1,5 +1,12 @@
 import re
-animals = ["狗", "猪", "鸟", "马", "鱼", "兔", "猴", "牛", "羊", "鸡", "鹿", "蛇", "僧"]
+import os
+import random
+animals = ["狗", "猪", "鸟", "马", "鱼", "兔", "猴",
+           "牛", "羊", "鸡", "鹿", "蛇", "僧", "鬼", 
+           "鹤", "犬", "鲤"]
+
+def _remove_brackets(text):
+    return re.sub(r'<.*?>', '', text)
 
 def _replace_ye_with_miao(text):
     return text.replace("也", "喵")
@@ -14,7 +21,7 @@ def _replace_animals_with_cat(text):
 
 def _should_miao_text(text, min_limit=0):
     # 检查文本长度是否超过140字符
-    if len(text) <= 140:
+    if len(text) >= 140:
         return 0
 
     # 统计“也”和动物的出现次数
@@ -31,6 +38,7 @@ def _should_miao_text(text, min_limit=0):
 
 
 def _miao_text(text):
+    text = _remove_brackets(text)
     text = _replace_ye_with_miao(text)
     text = _replace_animals_with_cat(text)
     return text
@@ -46,11 +54,36 @@ def miao_main(text, min_limit=3):
         return "", 0
 
 
+def traverse_directory(base_dir):
+    txt_paths = []
+    
+    # Collect all .txt file paths
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            if file.endswith('.txt'):
+                txt_paths.append(os.path.join(root, file))
+                
+    # Shuffle the list to ensure random order
+    random.shuffle(txt_paths)
+    
+    def process_file(file_path):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            paragraphs = content.split('\n')
+            for paragraph in paragraphs:
+                replaced_text, replaced_num = miao_main(paragraph)
+                if replaced_num > 0:
+                    # If condition is met, return the modified text and count
+                    return replaced_text, replaced_num
+        return False, False
+    
+    # Process each file in the shuffled list
+    for file_path in txt_paths:
+        replaced_text, replaced_num = process_file(file_path)
+        if replaced_text:
+            # If the condition is met in any file, return the information
+            return file_path, replaced_text, replaced_num
+
+
 if __name__ == "__main__":
-    text = ('环滁皆山也。其西南诸峰，林壑尤美，望之蔚然而深秀者，琅琊也。山行六七里，渐闻水声潺潺，'
-            '而泻出于两峰之间者，酿泉也。峰回路转，有亭翼然临于泉上者，醉翁亭也。作亭者谁？山之僧智仙也。'
-            '名之者谁？太守自谓也。太守与客来饮于此，饮少辄醉，而年又最高，故自号曰醉翁也。醉翁之意不在酒，'
-            '在乎山水之间也。山水之乐，得之心而寓之酒也。')
-    # text = ('环滁皆山也。其西南诸峰，林壑尤美，望之蔚然而深秀者，琅琊也。山行六七里，渐闻水声潺潺，')
-    new_text, replaced_num = miao_main(text)
-    print(f'New text: {new_text}\nReplaced_num: {replaced_num}')
+    pass
