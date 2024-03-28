@@ -6,12 +6,10 @@ import requests
 from datetime import datetime
 
 def create_image(prompt, file_name='tokens.yaml'):
-    whole_prompt = ("Create a colorful traditional Chinese landscape painting, also known as '山水画', "
-                    "featuring majestic mountains shrouded in mist and intricate, winding rivers. "
-                    "The scenery should be rendered in the classic ink wash style, showcasing the "
-                    "ethereal beauty and harmony of nature. Within this tranquil landscape, include"
-                    " several cats of various breeds engaging in peaceful activities. Put a lot of "
-                    "cats in there. A LOT OF CATS!!! {} ").format(prompt)
+    whole_prompt = ("Create a softly colored traditional Chinese landscape painting, "
+                    "with a more subdued color palette that creates a peaceful and dreamlike"
+                    "atmosphere, complemented by the presence of numerous cats engaged in quiet"
+                    "activities. Put a lot of cats in there. A LOT OF CATS!!! {} ").format(prompt)
     print("prompt: ")
     print(whole_prompt)
     
