@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 
 def create_image(prompt, file_name='tokens.yaml'):
-    whole_prompt = ("Create a softly colored traditional Chinese landscape painting, "
+    whole_prompt = ("Create a softly colored traditional Chinese painting, "
                     "with a more subdued color palette that creates a peaceful and dreamlike"
                     "atmosphere, complemented by the presence of numerous cats engaged in quiet"
                     "activities. Put a lot of cats in there. A LOT OF CATS!!! {} ").format(prompt)

@@ -4,7 +4,7 @@ src/imgs/randoCat
 # src/
 tokens.*
 .DS_Store
-
+nohup.out
 
 
 # Byte-compiled / optimized / DLL files
